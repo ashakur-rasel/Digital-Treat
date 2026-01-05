@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Admin Command | Rasel Bhai</title>
+      <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@900&display=swap"
+            rel="stylesheet">
+      <style>
+            /* Reusing your exact styles from index.html */
+            :root {
+                  --bg-color: #050505;
+                  --neon-border: #0ff;
+                  --neon-pink: #f0f;
+            }
+
+            body {
+                  font-family: 'Share Tech Mono', monospace;
+                  background-color: var(--bg-color);
+                  color: #fff;
+                  text-align: center;
+            }
+
+            .container {
+                  width: 90%;
+                  max-width: 1200px;
+                  margin: 0 auto;
+                  padding: 3rem 0;
+            }
+
+            .hud-box {
+                  border: 3px solid var(--neon-border);
+                  padding: 2rem;
+                  background: rgba(0, 0, 0, 0.85);
+                  clip-path: polygon(5% 0, 100% 0, 100% 85%, 95% 100%, 0 100%, 0 15%);
+                  margin-bottom: 2rem;
+            }
+
+            h1 {
+                  font-family: 'Orbitron';
+                  font-size: 2.5rem;
+                  color: var(--neon-pink);
+                  text-shadow: 0 0 15px var(--neon-pink);
+            }
+
+            /* Chapter Grid Styling */
+            .chapter-grid {
+                  display: grid;
+                  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                  gap: 20px;
+                  margin-top: 30px;
+            }
+
+            .ch-card {
+                  border: 1px solid #333;
+                  padding: 25px;
+                  background: rgba(0, 20, 20, 0.5);
+                  transition: 0.3s;
+                  clip-path: polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%);
+            }
+
+            .ch-card:hover {
+                  border-color: var(--neon-border);
+                  transform: scale(1.05);
+                  background: rgba(0, 255, 255, 0.1);
+            }
+
+            .btn-logout {
+                  color: var(--neon-pink);
+                  text-decoration: none;
+                  border: 1px solid var(--neon-pink);
+                  padding: 10px 20px;
+                  display: inline-block;
+                  margin-top: 40px;
+            }
+      </style>
+</head>
+
+<body>
+      <div class="container">
+            <div class="hud-box">
+                  <h1>TEACHER COMMAND CENTER</h1>
+                  <p>> SESSION: AUTHORIZED // USER: RASEL_SIR</p>
+            </div>
+
+            <div class="chapter-grid">
+                  <div class="ch-card">
+                        <h3>CH-01</h3>
+                        <p>Information & Communication Tech</p>
+                  </div>
+                  <div class="ch-card">
+                        <h3>CH-02</h3>
+                        <p>Communication Systems & Networking</p>
+                  </div>
+                  <div class="ch-card">
+                        <h3>CH-03</h3>
+                        <p>Number Systems & Digital Devices</p>
+                  </div>
+                  <div class="ch-card">
+                        <h3>CH-04</h3>
+                        <p>Web Design & HTML</p>
+                  </div>
+                  <div class="ch-card">
+                        <h3>CH-05</h3>
+                        <p>Programming Language (C)</p>
+                  </div>
+                  <div class="ch-card">
+                        <h3>CH-06</h3>
+                        <p>Database Management System</p>
+                  </div>
+            </div>
+
+            <a href="index.html" class="btn-logout">[ TERMINATE SESSION ]</a>
+      </div>
+</body>
+
+</html>

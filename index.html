@@ -244,9 +244,15 @@
             position: relative;
             overflow: hidden;
             transition: all 0.4s ease;
+            .student-card display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 150px;
+            /* This keeps them all the same height */
+        }
 
-            /* 2. SHAPE: Matching the HUD box */
-            clip-path: polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%);
+        /* 2. SHAPE: Matching the HUD box */
+        clip-path: polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%);
         }
 
         /* Hover Animation */
@@ -347,10 +353,24 @@
         <header>
             <div class="hud-box">
                 <h1>Rasel Bhai's<br>Digital Treat</h1>
-                <h2>HSC-2027 / FREE BATCH</h2>
+                <h2>HSC-2027</h2>
             </div>
             <p style="margin-top: 20px; letter-spacing: 2px;">> SYSTEM STATUS: ONLINE</p>
         </header>
+        <div class="container" style="padding-top: 0;">
+            <div class="hud-box" style="max-width: 400px; margin: 0 auto 4rem auto; padding: 1.5rem;">
+                <p style="color: var(--neon-border); margin-bottom: 15px; font-size: 0.8rem;">[ SECURE_ACCESS_PORTAL ]
+                </p>
+                <input type="text" id="username" placeholder="USER_ID (e.g. RT-009)"
+                    style="width: 100%; padding: 10px; margin-bottom: 10px; background: #000; border: 1px solid var(--neon-border); color: #fff; font-family: 'Share Tech Mono';">
+                <input type="password" id="password" placeholder="ACCESS_CODE"
+                    style="width: 100%; padding: 10px; margin-bottom: 20px; background: #000; border: 1px solid var(--neon-border); color: #fff; font-family: 'Share Tech Mono';">
+                <button onclick="handleLogin()" class="join-btn"
+                    style="width: 100%; border: none; padding: 10px;">INITIALIZE
+                    LOGIN</button>
+                <p id="error-msg" style="color: var(--neon-pink); margin-top: 10px; font-size: 0.8rem;"></p>
+            </div>
+        </div>
 
         <div class="countdown-box">
             <div class="timer" id="countdown">
@@ -371,46 +391,66 @@
         </div>
 
         <div class="crew-section">
-            <h3>Enrolled Students [07]</h3>
-            <div class="student-grid">
-                <section class="notice-board">
-                    <div class="notice-container">
-                        <h2 class="neon-text">RE-CORE NOTICE BOARD</h2>
-                        <ul class="notice-list">
-                            <li><span class="date">[JAN 06]</span> Welcome to the HSC-2027 ICT Digital Hub!</li>
-                            <li><span class="date">[JAN 10]</span> Upcoming Class: Logic Gates & Boolean Algebra.</li>
-                            <li><span class="date">[JAN 15]</span> Mini Quiz on Chapter 3 - Prepare well!</li>
-                        </ul>
-                    </div>
-                </section>
-                <div class="student-card">
+
+            <section class="notice-board" style="margin-bottom: 50px;">
+                <div class="notice-container" style="max-width: 100%; margin: 0 auto;">
+                    <h2 class="neon-text" style="border:none; margin-bottom: 15px;">RE-CORE NOTICE BOARD</h2>
+                    <ul class="notice-list">
+                        <li><span class="date">[JAN 06]</span> Login updated: Use ID (RT-009) and Password (HASINA).
+                        </li>
+                        <li><span class="date">[JAN 06]</span> Teacher Panel,Student Panel and Admin Panel created.
+                        </li>
+                        <li><span class="date">[JAN 06]</span> Class will start on Jan 27, 2026.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <h3 style="margin-bottom: 25px;">Enrolled Students [07]</h3>
+            <div class="student-grid"
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+
+                <div class="student-card"
+                    style="min-height: 140px; display: flex; flex-direction: column; justify-content: center;">
                     <div class="student-name">JOY</div>
                     <div class="student-role">ID: RT-001 // ACTIVE</div>
                 </div>
-                <div class="student-card">
+
+                <div class="student-card"
+                    style="min-height: 140px; display: flex; flex-direction: column; justify-content: center;">
                     <div class="student-name">RUPA</div>
                     <div class="student-role">ID: RT-002 // ACTIVE</div>
                 </div>
-                <div class="student-card">
+
+                <div class="student-card"
+                    style="min-height: 140px; display: flex; flex-direction: column; justify-content: center;">
                     <div class="student-name">FAHIM</div>
                     <div class="student-role">ID: RT-003 // ACTIVE</div>
                 </div>
-                <div class="student-card">
+
+                <div class="student-card"
+                    style="min-height: 140px; display: flex; flex-direction: column; justify-content: center;">
                     <div class="student-name">JIHAD</div>
                     <div class="student-role">ID: RT-004 // ACTIVE</div>
                 </div>
-                <div class="student-card">
+
+                <div class="student-card"
+                    style="min-height: 140px; display: flex; flex-direction: column; justify-content: center;">
                     <div class="student-name">ALVI</div>
                     <div class="student-role">ID: RT-005 // ACTIVE</div>
                 </div>
-                <div class="student-card">
+
+                <div class="student-card"
+                    style="min-height: 140px; display: flex; flex-direction: column; justify-content: center;">
                     <div class="student-name">TASPI</div>
                     <div class="student-role">ID: RT-006 // ACTIVE</div>
                 </div>
-                <div class="student-card">
+
+                <div class="student-card"
+                    style="min-height: 140px; display: flex; flex-direction: column; justify-content: center;">
                     <div class="student-name">TANHA</div>
                     <div class="student-role">ID: RT-007 // ACTIVE</div>
                 </div>
+
             </div>
         </div>
 
@@ -435,10 +475,10 @@
                 const m = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
                 const s = Math.floor((gap % (1000 * 60)) / 1000);
 
-                document.getElementById('days').innerText = d < 27 ? '0' + d : d;
-                document.getElementById('hours').innerText = h < 27 ? '0' + h : h;
-                document.getElementById('minutes').innerText = m < 27 ? '0' + m : m;
-                document.getElementById('seconds').innerText = s < 27 ? '0' + s : s;
+                document.getElementById('days').innerText = d < 27 ? + d : d;
+                document.getElementById('hours').innerText = h < 27 ? + h : h;
+                document.getElementById('minutes').innerText = m < 27 ? + m : m;
+                document.getElementById('seconds').innerText = s < 27 ? + s : s;
             } else {
                 document.getElementById('countdown').innerHTML = "<span style='color:#0f0'>BATCH STARTED</span>";
             }
@@ -546,6 +586,41 @@
                 welcomeBox.style.opacity = "0";
                 setTimeout(() => welcomeBox.remove(), 2000);
             }, 5000);
+        }
+        function handleLogin() {
+            const userInput = document.getElementById('username').value.trim().toUpperCase();
+            const passInput = document.getElementById('password').value.trim().toUpperCase();
+            const error = document.getElementById('error-msg');
+
+            // --- ADMIN & TEACHER ACCESS ---
+            if (userInput === 'RASEL' && passInput === '72735') {
+                window.location.href = 'admin.html';
+                return;
+            }
+            if (userInput === 'TEACHER' && passInput === '72735') {
+                window.location.href = 'teacher.html';
+                return;
+            }
+
+            // --- STUDENT DATA (The "Database" you can reset anytime) ---
+            // Format: 'STUDENT_ID': 'STUDENT_NAME'
+            const students = {
+                'RT-001': 'JOY',
+                'RT-002': 'RUPA',
+                'RT-003': 'FAHIM',
+                'RT-004': 'JIHAD',
+                'RT-005': 'ALVI',
+                'RT-006': 'TASPI',
+                'RT-007': 'TANHA'
+            };
+
+            // --- CHECK LOGIN ---
+            // If the ID exists in our list AND the password matches the name
+            if (students[userInput] && students[userInput] === passInput) {
+                window.location.href = `student.html?name=${students[userInput]}`;
+            } else {
+                error.innerText = "!! ERROR: INVALID_ID_OR_PASSWORD !!";
+            }
         }
     </script>
 </body>

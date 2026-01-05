@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Lecture Mode | Rasel Sir</title>
+      <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@900&display=swap"
+            rel="stylesheet">
+      <style>
+            /* Reusing your Matrix Styles */
+            :root {
+                  --bg-color: #050505;
+                  --neon-border: #0ff;
+                  --neon-pink: #f0f;
+            }
+
+            body {
+                  font-family: 'Share Tech Mono', monospace;
+                  background-color: var(--bg-color);
+                  color: #fff;
+                  margin: 0;
+                  padding: 20px;
+            }
+
+            .lecture-header {
+                  border-bottom: 2px solid var(--neon-border);
+                  padding-bottom: 10px;
+                  margin-bottom: 30px;
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+            }
+
+            .screen-area {
+                  width: 100%;
+                  height: 70vh;
+                  border: 2px solid #333;
+                  background: rgba(0, 20, 20, 0.5);
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  position: relative;
+                  clip-path: polygon(2% 0, 100% 0, 100% 95%, 98% 100%, 0 100%, 0 5%);
+            }
+
+            .screen-area::before {
+                  content: 'LIVE_LECTURE_STREAM';
+                  position: absolute;
+                  top: 10px;
+                  left: 20px;
+                  font-size: 0.7rem;
+                  color: var(--neon-border);
+                  opacity: 0.5;
+            }
+
+            .controls {
+                  margin-top: 20px;
+                  display: grid;
+                  grid-template-columns: repeat(4, 1fr);
+                  gap: 15px;
+            }
+
+            .tool-btn {
+                  background: transparent;
+                  border: 1px solid var(--neon-border);
+                  color: var(--neon-border);
+                  padding: 10px;
+                  cursor: pointer;
+                  font-family: 'Share Tech Mono';
+                  transition: 0.3s;
+            }
+
+            .tool-btn:hover {
+                  background: var(--neon-border);
+                  color: #000;
+            }
+
+            .status-light {
+                  width: 10px;
+                  height: 10px;
+                  background: #f00;
+                  border-radius: 50%;
+                  display: inline-block;
+                  margin-right: 10px;
+                  animation: blink 1s infinite;
+            }
+
+            @keyframes blink {
+                  50% {
+                        opacity: 0;
+                  }
+            }
+      </style>
+</head>
+
+<body>
+
+      <div class="lecture-header">
+            <div>
+                  <span class="status-light"></span>
+                  <span style="letter-spacing: 2px;">LECTURE MODE: ON</span>
+            </div>
+            <div style="font-family: 'Orbitron'; color: var(--neon-pink);">RASEL SIR | ICT</div>
+      </div>
+
+      <div class="screen-area">
+            <div style="text-align: center;">
+                  <p style="font-size: 1.5rem; color: #555;">[ PDF_VIEWER_READY ]</p>
+                  <p style="color: #333;">Select a chapter from the Control Panel to start.</p>
+            </div>
+      </div>
+
+      <div class="controls">
+            <button class="tool-btn" onclick="alert('Opening Chapter 3: Digital Devices...')">OPEN BOOK (PDF)</button>
+            <button class="tool-btn">WHITEBOARD</button>
+            <button class="tool-btn">STUDENT LIST</button>
+            <button class="tool-btn" style="border-color: var(--neon-pink); color: var(--neon-pink);"
+                  onclick="location.href='admin.html'">EXIT TO ADMIN</button>
+      </div>
+
+</body>
+
+</html>
