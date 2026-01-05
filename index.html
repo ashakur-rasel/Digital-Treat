@@ -17,6 +17,7 @@
             --neon-pink: #f0f;
         }
 
+
         * {
             margin: 0;
             padding: 0;
@@ -201,6 +202,40 @@
             perspective: 1000px;
         }
 
+        .notice-board {
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .notice-container {
+            background: var(--glass-bg);
+            border: 1px solid var(--neon-border);
+            padding: 25px;
+            width: 100%;
+            max-width: 800px;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+            border-radius: 8px;
+        }
+
+        .notice-list {
+            list-style: none;
+            margin-top: 20px;
+            font-family: 'Share Tech Mono', monospace;
+            color: #fff;
+        }
+
+        .notice-list li {
+            padding: 10px 0;
+            border-bottom: 1px dashed rgba(0, 255, 255, 0.3);
+        }
+
+        .date {
+            color: var(--neon-pink);
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
         .student-card {
             /* 1. VISIBILITY: Darker background */
             background: rgba(0, 0, 0, 0.85);
@@ -338,6 +373,16 @@
         <div class="crew-section">
             <h3>Enrolled Students [07]</h3>
             <div class="student-grid">
+                <section class="notice-board">
+                    <div class="notice-container">
+                        <h2 class="neon-text">RE-CORE NOTICE BOARD</h2>
+                        <ul class="notice-list">
+                            <li><span class="date">[JAN 06]</span> Welcome to the HSC-2027 ICT Digital Hub!</li>
+                            <li><span class="date">[JAN 10]</span> Upcoming Class: Logic Gates & Boolean Algebra.</li>
+                            <li><span class="date">[JAN 15]</span> Mini Quiz on Chapter 3 - Prepare well!</li>
+                        </ul>
+                    </div>
+                </section>
                 <div class="student-card">
                     <div class="student-name">JOY</div>
                     <div class="student-role">ID: RT-001 // ACTIVE</div>
