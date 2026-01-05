@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rasel Bhai's Digital Treat | HSC-2027</title>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@900&display=swap"
+        rel="stylesheet">
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --bg-color: #050505;
+            --glass-bg: rgba(0, 20, 0, 0.7);
+            --neon-border: #0ff;
+            /* Cyan default */
+            --neon-pink: #f0f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none;
+            /* Custom cursor only */
+        }
+
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            background-color: var(--bg-color);
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* --- BACKGROUND MATRIX CANVAS --- */
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* --- CUSTOM CURSOR --- */
+        .cursor {
+            width: 30px;
+            height: 30px;
+            border: 2px dashed #fff;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            animation: spin 5s linear infinite;
+            mix-blend-mode: difference;
+        }
+
+        .cursor.active {
+            transform: translate(-50%, -50%) scale(1.5);
+            background: rgba(255, 255, 255, 0.2);
+            border-style: solid;
+            border-color: var(--neon-border);
+        }
+
+        @keyframes spin {
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        /* --- MAIN CONTAINER --- */
+        .container {
+            position: relative;
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 0;
+            z-index: 10;
+            text-align: center;
+        }
+
+        /* --- TITLE HUD BOX & ANIMATED TEXT --- */
+        header {
+            margin-bottom: 4rem;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hud-box {
+            border: 3px solid var(--neon-border);
+            padding: 2rem 3rem;
+            position: relative;
+            background: rgba(0, 0, 0, 0.85);
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.3), inset 0 0 10px rgba(0, 255, 255, 0.2);
+            /* Corner Cuts */
+            clip-path: polygon(10% 0, 100% 0, 100% 85%, 90% 100%, 0 100%, 0 15%);
+            transition: transform 0.3s;
+        }
+
+        .hud-box:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.6);
+        }
+
+        /* The Animated Gradient Text */
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            text-transform: uppercase;
+            /* Gradient background moving */
+            background: linear-gradient(90deg,
+                    #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3, #ff0000);
+            background-size: 400%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: rainbow-move 8s linear infinite;
+            line-height: 1.2;
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            color: #fff;
+            letter-spacing: 3px;
+            margin-top: 10px;
+            border-top: 1px solid #555;
+            padding-top: 10px;
+            display: inline-block;
+        }
+
+        @keyframes rainbow-move {
+            0% {
+                background-position: 0%;
+            }
+
+            100% {
+                background-position: 400%;
+            }
+        }
+
+        /* --- COUNTDOWN SECTION --- */
+        .countdown-box {
+            background: var(--glass-bg);
+            border: 1px solid #fff;
+            padding: 2rem;
+            border-radius: 5px;
+            margin-bottom: 4rem;
+            backdrop-filter: blur(5px);
+            position: relative;
+        }
+
+        .countdown-box::before {
+            content: 'SYSTEM_TIMER';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000;
+            padding: 0 10px;
+            border: 1px solid #fff;
+            font-size: 0.8rem;
+            color: #fff;
+        }
+
+        .timer {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            font-size: 3rem;
+            font-weight: bold;
+            flex-wrap: wrap;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .time-segment span {
+            display: block;
+            font-size: 0.8rem;
+            color: #aaa;
+            font-weight: normal;
+        }
+
+        /* --- STUDENT GRID (FIXED) --- */
+        .crew-section h3 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--neon-border);
+        }
+
+        .student-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            perspective: 1000px;
+        }
+
+        .student-card {
+            /* 1. VISIBILITY: Darker background */
+            background: rgba(0, 0, 0, 0.85);
+            border: 1px solid #333;
+            padding: 2rem 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+
+            /* 2. SHAPE: Matching the HUD box */
+            clip-path: polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%);
+        }
+
+        /* Hover Animation */
+        .student-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            /* Lift Effect */
+            border-color: var(--neon-border);
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
+            /* Glow */
+            background: rgba(0, 20, 20, 0.95);
+        }
+
+        /* The Moving Shine Effect */
+        .student-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: 0.5s;
+        }
+
+        .student-card:hover::before {
+            left: 100%;
+        }
+
+        .student-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .student-role {
+            font-size: 0.9rem;
+            color: var(--neon-border);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        /* --- BUTTON --- */
+        .cta-container {
+            margin-top: 4rem;
+        }
+
+        .join-btn {
+            display: inline-block;
+            padding: 18px 50px;
+            font-size: 1.2rem;
+            color: #000;
+            background: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+            transition: 0.3s;
+        }
+
+        .join-btn:hover {
+            background: #000;
+            color: #fff;
+            box-shadow: 0 0 20px #fff;
+            border: 1px solid #fff;
+        }
+
+        /* --- MOBILE --- */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .hud-box {
+                padding: 1.5rem;
+                width: 100%;
+            }
+
+            .timer {
+                font-size: 2rem;
+                gap: 10px;
+            }
+
+            .student-grid {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="matrix-canvas"></canvas>
+    <div class="cursor" id="cursor"></div>
+
+    <div class="container">
+
+        <header>
+            <div class="hud-box">
+                <h1>Rasel Bhai's<br>Digital Treat</h1>
+                <h2>HSC-2027 / FREE BATCH</h2>
+            </div>
+            <p style="margin-top: 20px; letter-spacing: 2px;">> SYSTEM STATUS: ONLINE</p>
+        </header>
+
+        <div class="countdown-box">
+            <div class="timer" id="countdown">
+                <div class="time-segment">
+                    <div id="days">00</div><span>DAYS</span>
+                </div>
+                <div class="time-segment">
+                    <div id="hours">00</div><span>HOURS</span>
+                </div>
+                <div class="time-segment">
+                    <div id="minutes">00</div><span>MINUTES</span>
+                </div>
+                <div class="time-segment">
+                    <div id="seconds">00</div><span>SECONDS</span>
+                </div>
+            </div>
+            <p style="margin-top: 15px;">START: JAN 27, 2026 @ 7:00 PM</p>
+        </div>
+
+        <div class="crew-section">
+            <h3>Enrolled Students [07]</h3>
+            <div class="student-grid">
+                <div class="student-card">
+                    <div class="student-name">JOY</div>
+                    <div class="student-role">ID: RT-001 // ACTIVE</div>
+                </div>
+                <div class="student-card">
+                    <div class="student-name">RUPA</div>
+                    <div class="student-role">ID: RT-002 // ACTIVE</div>
+                </div>
+                <div class="student-card">
+                    <div class="student-name">FAHIM</div>
+                    <div class="student-role">ID: RT-003 // ACTIVE</div>
+                </div>
+                <div class="student-card">
+                    <div class="student-name">JIHAD</div>
+                    <div class="student-role">ID: RT-004 // ACTIVE</div>
+                </div>
+                <div class="student-card">
+                    <div class="student-name">ALVI</div>
+                    <div class="student-role">ID: RT-005 // ACTIVE</div>
+                </div>
+                <div class="student-card">
+                    <div class="student-name">TASPI</div>
+                    <div class="student-role">ID: RT-006 // ACTIVE</div>
+                </div>
+                <div class="student-card">
+                    <div class="student-name">TANHA</div>
+                    <div class="student-role">ID: RT-007 // ACTIVE</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-container">
+            <a href="https://classroom.google.com/c/ODI0MTAyNTc0MTMw?cjc=vbs7jzp6" target="_blank" class="join-btn">
+                JOIN GOOGLE CLASSROOM
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. COUNTDOWN (Jan 27, 2026, 7:00 PM) ---
+        const targetDate = new Date('January 27, 2026 19:00:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const gap = targetDate - now;
+
+            if (gap > 0) {
+                const d = Math.floor(gap / (1000 * 60 * 60 * 24));
+                const h = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((gap % (1000 * 60)) / 1000);
+
+                document.getElementById('days').innerText = d < 27 ? '0' + d : d;
+                document.getElementById('hours').innerText = h < 27 ? '0' + h : h;
+                document.getElementById('minutes').innerText = m < 27 ? '0' + m : m;
+                document.getElementById('seconds').innerText = s < 27 ? '0' + s : s;
+            } else {
+                document.getElementById('countdown').innerHTML = "<span style='color:#0f0'>BATCH STARTED</span>";
+            }
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // --- 2. CHAMELEON MATRIX RAIN (Changes every 3 seconds) ---
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+        for (let x = 0; x < columns; x++) drops[x] = 1;
+
+        // --- COLOR CHANGING LOGIC ---
+        // Array of Neon Colors
+        const neonColors = [
+            '#0F0',   // Green
+            '#0FF',   // Cyan
+            '#F0F',   // Magenta
+            '#FF0',   // Yellow
+            '#F00',   // Red
+            '#9D00FF' // Purple
+        ];
+
+        let currentColorIndex = 0;
+        let rainColor = neonColors[0];
+
+        // Change color every 3000ms (3 seconds)
+        setInterval(() => {
+            currentColorIndex = (currentColorIndex + 1) % neonColors.length;
+            rainColor = neonColors[currentColorIndex];
+        }, 3000);
+
+        function drawMatrix() {
+            // Slight fade effect
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Use the dynamic variable 'rainColor'
+            ctx.fillStyle = rainColor;
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975)
+                    drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(drawMatrix, 35);
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // --- 3. CURSOR ---
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+        document.querySelectorAll('a, .student-card').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+        });
+        // --- 4. STUDENT RECOGNITION SYSTEM ---
+        const urlParams = new URLSearchParams(window.location.search);
+        const nameInUrl = urlParams.get('name');
+
+        if (nameInUrl) {
+            const welcomeBox = document.createElement('div');
+            welcomeBox.style.cssText = `
+        position: fixed; 
+        top: 30px; 
+        left: 50%; 
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.9);
+        color: var(--neon-border);
+        padding: 15px 40px;
+        border: 2px solid var(--neon-border);
+        border-radius: 5px;
+        font-weight: bold;
+        z-index: 10001;
+        box-shadow: 0 0 30px var(--neon-border);
+        font-family: 'Orbitron', sans-serif;
+        letter-spacing: 2px;
+        clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+    `;
+            welcomeBox.innerHTML = `> ACCESS GRANTED: WELCOME, ${nameInUrl.toUpperCase()}!`;
+            document.body.appendChild(welcomeBox);
+
+            // After 5 seconds, it fades away like a ghost
+            setTimeout(() => {
+                welcomeBox.style.transition = "2s opacity";
+                welcomeBox.style.opacity = "0";
+                setTimeout(() => welcomeBox.remove(), 2000);
+            }, 5000);
+        }
+    </script>
+</body>
+
+</html>
